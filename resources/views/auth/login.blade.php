@@ -8,20 +8,21 @@
 
                 <div class="mb-6">
                     <label 
-                        for="username" 
+                        for="email" 
                         class="block mb-2 uppercase font-bold text-xs text-gray-700"
                     >
-                        Username
+                        Email
                     </label>
                     <input 
                         type="text" 
-                        class="border border-gray-400 outline-gray-500 p-2 w-full"
-                        name="username"
-                        value="{{ old('username') }}"
-                        autocomplete="username"
-                        autofocus
-                        required
+                        class="border border-gray-400 outline-gray-500 p-2 w-full @error('email') border border-red-500 @enderror"
+                        name="email"
+                        value="{{ old('email') }}"
                     >
+
+                    @error('email')
+                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="mb-6">
                     <label 
@@ -32,13 +33,21 @@
                     </label>
                     <input 
                         type="text" 
-                        class="border border-gray-400 outline-gray-500 p-2 w-full"
+                        class="border border-gray-400 outline-gray-500 p-2 w-full @error('password') border border-red-500 @enderror"
                         name="password"
-                        required
                     >
+
+                    @error('password')
+                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div>
-                    <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-xs uppercase text-white tracking-wider px-4 py-2">Login</button>
+                    <button 
+                        type="submit" 
+                        class="bg-blue-400 hover:bg-blue-500 text-xs uppercase text-white tracking-wider px-4 py-2"
+                    >
+                        Login
+                    </button>
                 </div>
             </form>
         </x-panel>

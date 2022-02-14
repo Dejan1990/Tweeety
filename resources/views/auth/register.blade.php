@@ -14,14 +14,16 @@
                         Username
                     </label>
                     <input 
-                        class="border border-gray-400 outline-gray-500 p-2 w-full"
+                        class="border border-gray-400 outline-gray-500 p-2 w-full @error('username') border border-red-500 @enderror"
                         type="text"
                         name="username"
                         value="{{ old('username') }}"
-                        autocomplete="username"
-                        autofocus
-                        required
+                        
                     >
+
+                    @error('username')
+                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="mb-6">
                     <label 
@@ -32,13 +34,15 @@
                     </label>
                     <input 
                         type="text" 
-                        class="border border-gray-400 outline-gray-500 p-2 w-full"
+                        class="border border-gray-400 outline-gray-500 p-2 w-full @error('name') border border-red-400 @enderror"
                         name="name"
                         value="{{ old('name') }}"
-                        autocomplete="name"
-                        autofocus
-                        required
+                        
                     >
+
+                    @error('name')
+                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="mb-6">
                     <label 
@@ -49,13 +53,15 @@
                     </label>
                     <input 
                         type="email" 
-                        class="border border-gray-400 outline-gray-500 p-2 w-full"
+                        class="border border-gray-400 outline-gray-500 p-2 w-full @error('email') border border-red-400 @enderror"
                         name="email"
                         value="{{ old('email') }}"
-                        autocomplete="email"
-                        autofocus
-                        required
+                        
                     >
+
+                    @error('email')
+                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="mb-6">
                     <label 
@@ -66,10 +72,13 @@
                     </label>
                     <input 
                         type="password" 
-                        class="border border-gray-400 outline-500 p-2 w-full"
+                        class="border border-gray-400 outline-gray-500 p-2 w-full @error('password') border border-red-400 @enderror"
                         name="password"
-                        autocomplete="new-password"
                     >
+
+                    @error('password')
+                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="mb-6">
                     <label 
@@ -82,8 +91,11 @@
                         type="password" 
                         class="border border-gray-400 outline-gray-500 p-2 w-full"
                         name="password_confirmation"
-                        autocomplete="new-password"
                     >
+
+                    @error('password_confirmation')
+                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div>
                     <button class="bg-blue-400 hover:bg-blue-500 rounded text-white text-sm uppercase px-4 py-2">Register</button>
