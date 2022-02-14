@@ -32,7 +32,7 @@
                         Password
                     </label>
                     <input 
-                        type="text" 
+                        type="password" 
                         class="border border-gray-400 outline-gray-500 p-2 w-full @error('password') border border-red-500 @enderror"
                         name="password"
                     >
