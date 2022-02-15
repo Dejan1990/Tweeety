@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TweetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +18,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::view('/tweets', 'tweets/index');
+Route::get('/tweets', [TweetController::class, 'index'])->name('tweets.index');
+
+Route::post('/tweets', [TweetController::class, 'store']);
