@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\ProfileController;
@@ -28,4 +29,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profile/{user:username}', [ProfileController::class, 'show'])->name('profile');
 
+    Route::post('/profiles/{user}/follow', [FollowController::class, 'store'])->name('follow');
+
 });
+

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Followable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Followable;
 
     /**
      * The attributes that are mass assignable.
@@ -49,6 +50,12 @@ class User extends Authenticatable
         return "https://i.pravatar.cc/200?u=".$this->email;
     }
 
+    public function getPathAttribute()
+    {
+        return route('profile', $this);
+        //return route('profile', $this->username); no need, in web.php {user:username}
+    }
+
     public function tweets()
     {
         return $this->hasMany(Tweet::class);
@@ -62,21 +69,5 @@ class User extends Authenticatable
             ->orWhere('user_id', $this->id)
             ->latest()
             ->get();
-    }
-
-    public function follows()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
-    }
-
-    public function follow(User $user)
-    {
-        //return $this->follows()->save($user);
-        return $this->follows()->attach($user);
-    }
-
-    public function unFollow(User $user)
-    {
-        return $this->follows()->detach($user);
     }
 }
