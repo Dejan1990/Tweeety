@@ -1,5 +1,5 @@
 <x-master>
-    <div class="container mx-auto flex justify-center">
+    <div class="container mx-auto flex justify-center rounded-lg">
         <x-panel>
             <x-slot name="heading">Login</x-slot>
 
