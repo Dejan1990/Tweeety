@@ -18,6 +18,11 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/tweets', [TweetController::class, 'index'])->name('tweets.index');
+Route::middleware('auth')->group(function () {
 
-Route::post('/tweets', [TweetController::class, 'store']);
+    Route::controller(TweetController::class)->group(function () {
+        Route::get('/tweets', 'index')->name('tweets.index');
+        Route::post('/tweets', 'store');
+    });
+
+});
