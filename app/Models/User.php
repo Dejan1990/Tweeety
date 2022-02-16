@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Followable;
+use Attribute;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -45,15 +47,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getAvatarAttribute()
+    public function getAvatarAttribute($value)
     {
-        return "https://i.pravatar.cc/200?u=".$this->email;
+        /*if (isset($value)) { //if ($value)
+            return asset('storage/' . $value );
+        }
+        return asset('images/default-avatar.jpeg');*/
+
+        return asset($value ? 'storage/'.$value : 'images/default-avatar.jpeg');
+        
     }
 
     public function getPathAttribute()
     {
         return route('profile', $this);
-        //return route('profile', $this->username); no need, in web.php {user:username}
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 
     public function tweets()

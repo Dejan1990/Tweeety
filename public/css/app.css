@@ -602,14 +602,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .overflow-hidden {
   overflow: hidden;
 }
+.rounded-lg {
+  border-radius: 1.25rem;
+}
 .rounded {
   border-radius: 0.25rem;
 }
 .rounded-full {
   border-radius: 9999px;
-}
-.rounded-lg {
-  border-radius: 1.25rem;
 }
 .border {
   border-width: 1px;
