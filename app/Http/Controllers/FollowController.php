@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class FollowController extends Controller
 {
-    public function store(User $user)
+    public function __invoke(User $user)
     {
         auth()->user()->toggleFollow($user);
 

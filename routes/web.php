@@ -28,15 +28,15 @@ Route::middleware('auth')->group(function () {
         Route::post('/tweets', 'store');
     });
 
-    Route::get('/profile/{user:username}', [ProfileController::class, 'show'])->name('profile');
-    Route::get('/profile/{user:username}/edit', [ProfileController::class, 'edit'])
-        ->name('profile.edit')
-        ->middleware('can:edit,user');
-    Route::put('/profile/{user:username}/update', [ProfileController::class, 'store'])->name('profile.store');
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/profile/{user:username}', 'show')->name('profile');
+        Route::get('/profile/{user:username}/edit', 'edit')->name('profile.edit')->middleware('can:edit,user');
+        Route::put('/profile/{user:username}/update', 'update')->name('profile.update');
+    });
 
-    Route::post('/profiles/{user}/follow', [FollowController::class, 'store'])->name('follow');
+    Route::post('/profiles/{user}/follow', FollowController::class)->name('follow');
 
-    Route::get('explore', [ExploreController::class, 'index'])->name('explore');
+    Route::get('explore', ExploreController::class)->name('explore');
 
 });
 

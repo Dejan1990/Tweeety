@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
     public function show(User $user)
     {
-        return view('profiles.show', compact('user'));
+        return view('profiles.show', [
+            'user' => $user,
+            'tweets' => $user->tweets()->paginate(50)
+        ]);
     }
 
     public function edit(User $user)
@@ -19,7 +20,7 @@ class ProfileController extends Controller
         return view('profiles.edit', compact('user'));
     }
 
-    public function store(User $user)
+    public function update(User $user)
     {
         $attributes = request()->validate([
             'username' => ['required', 'string', 'max:255', 'alpha_dash', Rule::unique('users')->ignore($user)],

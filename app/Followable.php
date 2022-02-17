@@ -11,17 +11,6 @@ trait Followable
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
     }
 
-    public function follow(User $user)
-    {
-        //return $this->follows()->save($user);
-        return $this->follows()->attach($user);
-    }
-
-    public function unFollow(User $user)
-    {
-        return $this->follows()->detach($user);
-    }
-
     public function following(User $user)
     {
         return $this->follows()->where('following_user_id', $user->id)->exists();
@@ -35,6 +24,19 @@ trait Followable
 
         return $this->follow($user);*/
 
-        return $this->following($user) ? $this->unFollow($user) : $this->follow($user);
+        //return $this->following($user) ? $this->unFollow($user) : $this->follow($user);
+
+        $this->follows()->toggle($user);
     }
+
+    /*public function follow(User $user)
+    {
+        //return $this->follows()->save($user);
+        return $this->follows()->attach($user);
+    }
+
+    public function unFollow(User $user)
+    {
+        return $this->follows()->detach($user);
+    }*/
 }
