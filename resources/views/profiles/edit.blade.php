@@ -15,7 +15,7 @@
                    name="name"
                    id="name"
                    value="{{ $user->name }}"
-                   
+                   required
             >
 
             @error('name')
@@ -35,7 +35,7 @@
                    name="username"
                    id="username"
                    value="{{ $user->username }}"
-                   
+                   required
             >
 
             @error('username')
@@ -55,7 +55,7 @@
                        type="file"
                        name="avatar"
                        id="avatar"
-                       
+                       accept="image/*"
                 >
 
                 <img src="{{ $user->avatar }}"
@@ -82,7 +82,7 @@
                    name="email"
                    id="email"
                    value="{{ $user->email }}"
-                   
+                   required
             >
 
             @error('email')
@@ -101,7 +101,7 @@
                    type="password"
                    name="password"
                    id="password"
-                   
+                   required
             >
 
             @error('password')
@@ -120,7 +120,7 @@
                    type="password"
                    name="password_confirmation"
                    id="password_confirmation"
-                   
+                   required
             >
 
             @error('password_confirmation')
