@@ -13,7 +13,15 @@ class ProfileController extends Controller
             'user' => $user,
             'tweets' => $user
                 ->tweets()
-                ->withLikes()
+                //->withLikes()
+                ->withCount([
+                    'likes as liked_count' => function ($query) {
+                        $query->where('liked', true);
+                    },
+                    'likes as disliked_count' => function ($query) {
+                        $query->where('liked', false);
+                    }
+                ])
                 ->paginate(50),
         ]);
     }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait Likable
 {
-    public function scopeWithLikes(Builder $query)
+   /* public function scopeWithLikes(Builder $query)
     {
         $query->leftJoinSub(
             'select tweet_id, sum(liked) likes, sum(!liked) dislikes from likes group by tweet_id',
@@ -16,7 +16,7 @@ trait Likable
             'likes.tweet_id',
             'tweets.id'
         );
-    }
+    }*/
 
     public function isLikedBy(User $user)
     {

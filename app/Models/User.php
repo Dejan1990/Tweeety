@@ -78,7 +78,15 @@ class User extends Authenticatable
         //return $this->tweets()->latest()->get();
         return Tweet::whereIn('user_id', $this->follows->pluck('id'))
             ->orWhere('user_id', $this->id)
-            ->withLikes()
+            //->withLikes()
+            ->withCount([
+                'likes as liked_count' => function ($query) {
+                    $query->where('liked', true);
+                },
+                'likes as disliked_count' => function ($query) {
+                    $query->where('liked', false);
+                }
+            ])
             ->orderByDesc('id')
             ->paginate(50);
     }
