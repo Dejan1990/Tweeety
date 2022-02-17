@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Followable;
-use Attribute;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -79,7 +78,13 @@ class User extends Authenticatable
         //return $this->tweets()->latest()->get();
         return Tweet::whereIn('user_id', $this->follows->pluck('id'))
             ->orWhere('user_id', $this->id)
-            ->latest()
+            ->withLikes()
+            ->orderByDesc('id')
             ->paginate(50);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 }

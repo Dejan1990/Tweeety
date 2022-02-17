@@ -17,17 +17,19 @@
     <li>
         <a class="font-bold text-lg mb-4 block" href="#">Lists</a>
     </li>
-    <li>
-        <a class="font-bold text-lg mb-4 block" href="{{ current_user()->path }}">Profile</a>
-    </li>
-    <li>
-        <a class="font-bold text-lg mb-4 block" href="#">More</a>
-    </li>
-    <li>
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
+    @auth
+        <li>
+            <a class="font-bold text-lg mb-4 block" href="{{ current_user()->path }}">Profile</a>
+        </li>
+        <li>
+            <a class="font-bold text-lg mb-4 block" href="#">More</a>
+        </li>
+        <li>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
 
-            <button class="font-bold text-lg">Logout</button>
-        </form>
-    </li>
+                <button class="font-bold text-lg">Logout</button>
+            </form>
+        </li>
+    @endauth
 </ul>

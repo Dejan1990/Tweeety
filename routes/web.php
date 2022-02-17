@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\ExploreController;
-use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TweetController;
+use App\Http\Controllers\FollowController;
+use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TweetLikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/profiles/{user}/follow', FollowController::class)->name('follow');
 
     Route::get('explore', ExploreController::class)->name('explore');
+
+    Route::controller(TweetLikeController::class)->group(function () {
+        Route::post('/tweets/{tweet}/like', 'store');
+        Route::delete('/tweets/{tweet}/like', 'destroy');
+    });
 
 });
 
