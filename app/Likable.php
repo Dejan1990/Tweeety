@@ -8,16 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait Likable
 {
-   /* public function scopeWithLikes(Builder $query)
-    {
-        $query->leftJoinSub(
-            'select tweet_id, sum(liked) likes, sum(!liked) dislikes from likes group by tweet_id',
-            'likes',
-            'likes.tweet_id',
-            'tweets.id'
-        );
-    }*/
-
     public function isLikedBy(User $user)
     {
         return (bool) $user->likes
@@ -39,20 +29,20 @@ trait Likable
         return $this->hasMany(Like::class);
     }
 
-    public function dislike($user = null)
+    public function like($liked = true)
     {
-        return $this->like($user, false);
-    }
-
-    public function like($user = null, $liked = true)
-    {
-        $this->likes()->updateOrCreate(
+        return $this->likes()->updateOrCreate(
             [
-                'user_id' => $user ? $user->id : auth()->id(),
+                'user_id' => auth()->user()->id
             ],
             [
-                'liked' => $liked,
+                'liked' => $liked
             ]
         );
+    }
+
+    public function dislike()
+    {
+        return $this->like(false);
     }
 }

@@ -20,6 +20,6 @@ class TweetController extends Controller
                 'body' => ['required', 'min:3', 'max:255', 'string']
         ]));
 
-        return redirect('/tweets');
+        return redirect('/tweets')->with('success', 'You just tweeted');
     }
 }
